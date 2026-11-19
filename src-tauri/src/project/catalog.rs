@@ -420,11 +420,7 @@ pub async fn save_mcp_settings(mcp: crate::mcp::McpSettings) -> Result<AppSettin
 async fn load_index_from(path: &Path) -> Result<ProjectIndex> {
     if path.is_file() {
         if let Ok(bytes) = tokio::fs::read(path).await {
-            if let Ok(mut value) = serde_json::from_slice::<AppSettings>(&bytes) {
-                // A saved root that is only the old default moves to the new default.
-                if legacy_default_projects_root().as_ref() == Some(&value.projects_root) {
-                    value.projects_root = default_projects_root()?;
-                }
+            if let Ok(value) = serde_json::from_slice(&bytes) {
                 return Ok(value);
             }
         }
