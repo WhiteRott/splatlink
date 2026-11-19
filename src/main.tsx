@@ -5,9 +5,11 @@ import { LanguageProvider } from "./i18n";
 import "./styles.css";
 import "./styles-dark.css";
 import { initTheme } from "./lib/theme";
+import { scheduleSplashTimeout } from "./lib/splash";
 
 const disposeTheme = initTheme();
 import.meta.hot?.dispose(disposeTheme);
+scheduleSplashTimeout();
 
 if ("__TAURI_INTERNALS__" in window) {
   void import("./lib/mcpExportExecutor").then(async ({ startMcpExportExecutor }) => {

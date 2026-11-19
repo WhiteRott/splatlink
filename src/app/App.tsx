@@ -65,6 +65,7 @@ import { loadUiPreferences, saveUiPreferences } from "./uiPreferences";
 import { GenerationPreflightDialog, type PreflightSession } from '../components/GenerationPreflightDialog';
 import { GpuSelectionDialog, type GpuSelectionResult } from '../components/GpuSelectionDialog';
 import { answerIsValid, collectPreflightQuestions,confirmedInputs, imageMatchingStrategy, preflightSnapshot, projectionIdentity, resolvedProjection, type PreflightAnswers, type PreflightQuestion } from './generationPreflight';
+import { hideSplash } from "../lib/splash";
 
 const GaussianViewer = lazy(() => import("../components/GaussianViewer").then((module) => ({ default: module.GaussianViewer })));
 const CANCELLATION_OVERLAY_DELAY_MS = 300;
@@ -278,6 +279,8 @@ function DraftRow({ draft, selected, status, insertion, dragging, onSelect, onDe
 export function App() {
   const { locale, t, toggleLocale } = useI18n();
   const store = useAppStore();
+  // SplatLink: hide the loading screen once the project folder is known.
+  useEffect(() => { if (store.projectsRoot) hideSplash(); }, [store.projectsRoot]);
   const { tasks: sharedTasks, syncError: taskSyncError, refreshTasks } = useSharedTasks();
   const loadGaussian = useGaussianTransformStore((state) => state.load);
   const closeGaussian = useGaussianTransformStore((state) => state.close);
@@ -2366,7 +2369,7 @@ export function App() {
         <div className="form-section">
           <label className="field-label">{t("project.root")}</label>
           <button className="path-picker compact" type="button" disabled={selectedDraft.running} onClick={() => void chooseRoot()}>
-            <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatStudio / Projects"}</small></span><ChevronRight size={16} />
+            <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatLink"}</small></span><ChevronRight size={16} />
           </button>
           <p className="field-note">{t("project.rootHint")}</p>
         </div>
@@ -2411,7 +2414,7 @@ export function App() {
           <div className="form-section">
             <label className="field-label">{t("project.root")}</label>
             <button className="path-picker compact" type="button" disabled={selectedDraft.running} onClick={() => void chooseRoot()}>
-              <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatStudio / Projects"}</small></span><ChevronRight size={16} />
+              <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatLink"}</small></span><ChevronRight size={16} />
             </button>
             <p className="field-note">{t("project.rootHint")}</p>
           </div>

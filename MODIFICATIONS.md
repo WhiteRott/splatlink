@@ -51,6 +51,16 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `src/i18n/index.tsx`: Appearance text in Chinese and English.
 - `package.json`: new `theme:dark` script.
 
+## 2026-11-19: Loading screen and default folder
+
+- `index.html`: new loading screen with the SplatLink logo, name and a progress bar. It follows the light or dark theme.
+- `public/theme-boot.js` (new): sets the saved theme before the first paint, so the loading screen has the right colors.
+- `src/lib/splash.ts` (new): hides the loading screen. It stays at least 0.7 seconds and at most 10 seconds.
+- `src/main.tsx`: starts the 10-second limit for the loading screen.
+- `src/app/App.tsx`: hides the loading screen when the project folder is known. The folder shown before settings load now reads "Documents / SplatLink".
+- `src-tauri/tauri.conf.json`: window background changed to dark, to match the loading screen.
+- `src-tauri/src/project/catalog.rs`: the default working directory is now `Documents/SplatLink` (it was `Documents/SplatStudio/Projects`). A saved folder equal to the old default moves to the new default. Projects in the old default folder stay visible in the list.
+
 ## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.
