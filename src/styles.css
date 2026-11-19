@@ -1108,3 +1108,10 @@ h1, h2 { margin: 0; font: 650 29px/1 "Bahnschrift", "Microsoft YaHei UI", sans-s
 }
 .legacy-source-log > summary { cursor: pointer; color: inherit; padding: 7px 10px; font-family: var(--font-mono, monospace); }
 .legacy-source-log { border-top: 1px solid #384252; }
+
+/* SplatLink: shared hover tooltip (added by WhiteRott, 2026). */
+.hover-tooltip { position: fixed; z-index: 9000; max-width: 280px; padding: 6px 10px; color: var(--paper); background: var(--ink); border-radius: 6px; font-size: 12px; line-height: 1.45; pointer-events: none; box-shadow: 0 4px 14px rgba(19, 30, 49, .22); animation: hover-tooltip-in 120ms ease-out; }
+.hover-tooltip.above { transform: translate(-50%, -100%); }
+.hover-tooltip.below { transform: translate(-50%, 0); }
+@keyframes hover-tooltip-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hover-tooltip { animation: none; } }

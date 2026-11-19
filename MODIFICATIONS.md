@@ -61,6 +61,17 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `src-tauri/tauri.conf.json`: window background changed to dark, to match the loading screen.
 - `src-tauri/src/project/catalog.rs`: the default working directory is now `Documents/SplatLink` (it was `Documents/SplatStudio/Projects`). A saved folder equal to the old default moves to the new default. Projects in the old default folder stay visible in the list.
 
+## 2026-11-19: Hover tooltips
+
+- `src/lib/tooltips.ts` (new): the on/off choice for tooltips (on by default) and the rules for tooltip text.
+- `src/components/HoverTooltips.tsx` (new): one shared tooltip. It shows after a short hover or on keyboard focus. When tooltips are off, the browser's own tooltips are also hidden.
+- `src/components/HoverTooltips.test.tsx` (new): tests for the tooltips.
+- `src/main.tsx`: mounts the shared tooltip.
+- `src/components/SettingsDialog.tsx`: new "Hover tooltips" switch under Settings / Interface.
+- `src/app/App.tsx`, `src/components/MaterialInputs.tsx`: helpful tooltips on Start Generation, Refresh, Settings, Auto-run, Add files and Add folders.
+- `src/i18n/index.tsx`: tooltip text in Chinese and English.
+- `src/styles.css`, `src/styles-dark.css`: tooltip styles.
+
 ## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.
