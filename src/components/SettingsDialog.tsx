@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { Cpu, Monitor, RefreshCw, Settings2, ShieldCheck, X } from "lucide-react";
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { useI18n } from "../i18n";
@@ -7,6 +8,9 @@ import { PrivacySettingsPanel } from "./TelemetryPreferences";
 import { McpSettingsPanel } from "./McpSettingsPanel";
 import { getGpuSettings, setGpuSettings } from "../lib/backend";
 import type { HardwareSettingsView } from "../types/pipeline";
+import { useThemePreference, type ThemePreference } from "../lib/theme";
+
+const themeOptions: ThemePreference[] = ["system", "light", "dark"];
 
 type SettingsSection = "interface" | "hardware" | "updates" | "privacy" | "mcp";
 const sections: SettingsSection[] = ["interface", "hardware", "updates", "privacy", "mcp"];
@@ -21,6 +25,7 @@ export function SettingsDialog({ preferences, telemetryBusy, showRuntimePanel, o
   onClose: () => void;
 }) {
   const { t } = useI18n();
+  const [theme, setTheme] = useThemePreference();
   const [section, setSection] = useState<SettingsSection>("interface");
   const [hardware, setHardware] = useState<HardwareSettingsView | null>(null);
   const [hardwareBusy, setHardwareBusy] = useState(false);
@@ -86,6 +91,19 @@ export function SettingsDialog({ preferences, telemetryBusy, showRuntimePanel, o
         <div className="settings-content">
           {section === "interface" && <section id="settings-panel-interface" role="tabpanel" aria-labelledby="settings-tab-interface">
             <div className="settings-section-heading"><h3>{t("settings.interface")}</h3><p>{t("settings.interfaceHint")}</p></div>
+            <div className="settings-row settings-row-wide">
+              <div><strong>{t("settings.theme")}</strong><p>{t("settings.themeHint")}</p></div>
+              <div className="settings-segmented" role="radiogroup" aria-label={t("settings.theme")}>
+                {themeOptions.map(option => <button
+                  key={option}
+                  type="button"
+                  role="radio"
+                  aria-checked={theme === option}
+                  className={theme === option ? "selected" : undefined}
+                  onClick={() => setTheme(option)}
+                >{t(option === "system" ? "settings.themeSystem" : option === "light" ? "settings.themeLight" : "settings.themeDark")}</button>)}
+              </div>
+            </div>
             <div className="settings-row">
               <div><strong>{t("settings.runtimePanel")}</strong><p>{t("settings.runtimePanelHint")}</p></div>
               <button type="button" role="switch" aria-checked={showRuntimePanel} aria-label={t("settings.runtimePanel")} className={showRuntimePanel ? "settings-switch enabled" : "settings-switch"} onClick={() => onRuntimePanelChange(!showRuntimePanel)}><span /></button>

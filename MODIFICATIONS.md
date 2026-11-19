@@ -39,6 +39,18 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `scripts/verify-docs.mjs`, `scripts/verify-licenses.mjs`: checks updated for the new README layout and the new author and repository.
 - Tests updated for the new names: `src/app/App.preview.test.tsx`, `src/components/GaussianViewer/GaussianVideoExport.test.ts`, `src-tauri/src/updates/tests.rs`.
 
+## 2026-11-19: Dark mode
+
+- `src/lib/theme.ts` (new): stores the System, Light or Dark choice and applies it to the page. "System" follows the operating system setting.
+- `src/lib/theme.test.ts` (new): tests for the theme logic.
+- `scripts/generate-dark-theme.mjs` (new): builds `src/styles-dark.css` from `src/styles.css`. Run `npm run theme:dark` after you change `styles.css`.
+- `src/styles-dark.css` (new, generated): the dark color rules.
+- `src/styles.css`: styles for the theme selector.
+- `src/main.tsx`: loads the dark styles and applies the saved theme at startup.
+- `src/components/SettingsDialog.tsx`: new Appearance choice (System, Light, Dark) under Settings / Interface.
+- `src/i18n/index.tsx`: Appearance text in Chinese and English.
+- `package.json`: new `theme:dark` script.
+
 ### Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.
