@@ -51,7 +51,7 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `src/i18n/index.tsx`: Appearance text in Chinese and English.
 - `package.json`: new `theme:dark` script.
 
-### Not changed yet
+## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.
 - The engine downloads (COLMAP and Brush) still come from the original OOOSplat release pages. Their licenses allow this.
