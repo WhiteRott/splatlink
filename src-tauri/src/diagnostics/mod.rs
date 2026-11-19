@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 //! Explicit, one-shot diagnostic consent. Never uses the anonymous telemetry service.
 mod hardware;
 pub(crate) mod logs;
@@ -515,7 +516,7 @@ impl DiagnosticService {
                 .map_err(|_| error("report_unavailable"))?;
             let mut response = client
                 .post(endpoint)
-                .header("X-OOOSplat-Report", "diagnostic-v1")
+                .header("X-SplatLink-Report", "diagnostic-v1")
                 .json(&report)
                 .send()
                 .await

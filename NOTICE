@@ -1,3 +1,11 @@
+SplatLink
+Copyright 2026 WhiteRott
+
+SplatLink is based on OOOSplat (https://github.com/ooolabdev/ooosplat).
+SplatLink is not an official OOOSplat product and is not endorsed by ooolabdev.
+WhiteRott changed the original files. See MODIFICATIONS.md for the list of changes.
+
+Original work:
 OOOSplat
 Copyright 2026 ooolabdev
 
@@ -8,3 +16,4 @@ licenses/THIRD_PARTY_NOTICES.txt for attribution and license information.
 
 The Apache License does not grant permission to use the OOOSplat name, logo,
 icons, or other brand features as trademarks. See TRADEMARK_POLICY.md.
+SplatLink does not use the OOOSplat name, logo or icons as its own brand.

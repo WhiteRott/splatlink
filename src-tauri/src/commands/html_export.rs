@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 //! Offline export: model bytes never cross IPC and never become one large String.
 use super::{
     catalog, parse_project_id, preview_client_path, GaussianVideoExportReservation,
@@ -443,7 +444,7 @@ fn write_html(
         HtmlLocale::Chinese => "zh-CN",
         HtmlLocale::English => "en",
     };
-    write!(writer,"<!doctype html><html lang=\"{language}\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>OOOSplat Preview</title><style>{}</style></head><body>",include_str!("../../../html-viewer/style.css"))?;
+    write!(writer,"<!doctype html><html lang=\"{language}\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>SplatLink Preview</title><style>{}</style></head><body>",include_str!("../../../html-viewer/style.css"))?;
     writer.write_all(include_str!("../../../html-viewer/body.html").as_bytes())?;
     write!(
         writer,

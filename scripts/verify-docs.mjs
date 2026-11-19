@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
@@ -5,8 +6,9 @@ import process from "node:process";
 const root = process.cwd();
 const rootDocuments = [
   "README.md",
-  "README_EN.md",
-  "README_JA.md",
+  "docs/upstream/README_zh.md",
+  "docs/upstream/README_EN.md",
+  "docs/upstream/README_JA.md",
   "ROADMAP.md",
   "ROADMAP_EN.md",
   "CONTRIBUTING.md",

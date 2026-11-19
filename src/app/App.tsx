@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { taskStatusLabel, taskProjectSummary } from "./taskPresentation";
 import { NewTaskRow } from "../components/NewTaskRow";
 import { ProjectRow } from "../components/ProjectRow";
@@ -2342,7 +2343,7 @@ export function App() {
   return <main className={isResizing ? "app-shell resizing" : "app-shell"}>
     <div className="interface-frame" style={{ "--ui-scale": uiScale / 100, "--ui-size": `${10000 / uiScale}%` } as CSSProperties}>
     <header className="topbar">
-      <div className="brand-lockup"><span className="brand-mark"><img src={appLogo} alt="" aria-hidden="true" /></span><span className="brand-name">OOO<span>Splat</span></span><span className="version-tag">LOCAL / {packageMetadata.version}</span></div>
+      <div className="brand-lockup"><span className="brand-mark"><img src={appLogo} alt="" aria-hidden="true" /></span><span className="brand-name">Splat<span>Link</span></span><span className="version-tag">LOCAL / {packageMetadata.version}</span></div>
       <div className="topbar-actions">
         <button className="settings-action language-action" type="button" title={t("language.switchTo")} aria-label={t("language.switchTo")} onClick={toggleLocale}><Languages size={15} />{t("language.target")}</button>
         {updates.release && <button className="settings-action update-notice-action" type="button" onClick={updates.open}><BellDot size={15} />{t("update.found")}</button>}

@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "OOOSplat",
+  "productName": "SplatLink",
   "version": "0.8.1",
-  "identifier": "studio.ooo.splat",
+  "identifier": "app.splatlink.desktop",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "OOOSplat",
+        "title": "SplatLink",
         "width": 1500,
         "height": 850,
         "minWidth": 1100,

@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import {
   forwardRef,
   memo,
@@ -1805,7 +1806,7 @@ export function GaussianViewer({ previewSessionId, onExit, onDisposed, pipelineR
         </Application>
         {mode === "preview" && <div ref={captureGuideRef} className={`portrait-capture-guide orientation-${orientation}`} style={guideSize} aria-hidden="true">
           <div className="portrait-frame-label"><span>{gaussianVideoDimensions(orientation).width} × {gaussianVideoDimensions(orientation).height}</span><span>30 FPS</span></div>
-          <div className="preview-watermark"><img src={appLogo} alt="" /><strong>OOOSplat</strong></div>
+          <div className="preview-watermark"><img src={appLogo} alt="" /><strong>SplatLink</strong></div>
         </div>}
         {mode === "preview" && <div className="portrait-matte" style={guideSize} aria-hidden="true" />}
         {viewport.phase !== "ready" && viewport.phase !== "error" && <div className="viewport-overlay"><LoaderCircle className="spin" size={22} /><strong>{loadingLabel}</strong>{viewport.phase === "loading" && <span>{(viewport.progress * 100).toFixed(0)}%</span>}</div>}

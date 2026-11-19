@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -64,17 +65,17 @@ assert(
 
 const packageJson = JSON.parse(readText("package.json"));
 assert(packageJson.license === "Apache-2.0", "package.json must declare Apache-2.0.");
-assert(packageJson.author === "ooolabdev", "package.json must identify ooolabdev as author.");
+assert(packageJson.author === "WhiteRott (based on OOOSplat by ooolabdev)", "package.json must identify the author and the OOOSplat origin.");
 assert(
-  packageJson.repository?.url === "git+https://github.com/ooolabdev/ooosplat.git",
+  packageJson.repository?.url === "git+https://github.com/WhiteRott/splatlink.git",
   "package.json repository URL is incorrect.",
 );
 
 const cargo = readText("src-tauri/Cargo.toml");
 assert(/^license\s*=\s*"Apache-2\.0"\s*$/m.test(cargo), "Cargo.toml must declare Apache-2.0.");
-assert(/^authors\s*=\s*\["ooolabdev"\]\s*$/m.test(cargo), "Cargo.toml must identify ooolabdev as author.");
+assert(/^authors\s*=\s*\["ooolabdev", "WhiteRott"\]\s*$/m.test(cargo), "Cargo.toml must credit ooolabdev and WhiteRott as authors.");
 assert(
-  /^repository\s*=\s*"https:\/\/github\.com\/ooolabdev\/ooosplat"\s*$/m.test(cargo),
+  /^repository\s*=\s*"https:\/\/github\.com\/WhiteRott\/splatlink"\s*$/m.test(cargo),
   "Cargo.toml repository URL is incorrect.",
 );
 

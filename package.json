@@ -1,12 +1,12 @@
 {
-  "name": "ooo-splat",
+  "name": "splatlink",
   "private": true,
   "version": "0.8.1",
   "license": "Apache-2.0",
-  "author": "ooolabdev",
+  "author": "WhiteRott (based on OOOSplat by ooolabdev)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ooolabdev/ooosplat.git"
+    "url": "git+https://github.com/WhiteRott/splatlink.git"
   },
   "type": "module",
   "scripts": {

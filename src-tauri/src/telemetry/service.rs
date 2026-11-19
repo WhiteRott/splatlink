@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 use std::{
     path::PathBuf,
     sync::{
@@ -123,7 +124,7 @@ impl Delivery {
         let Ok(client) = reqwest::Client::builder()
             .connect_timeout(TELEMETRY_TIMEOUT)
             .timeout(TELEMETRY_TIMEOUT)
-            .user_agent(concat!("OOOSplat/", env!("CARGO_PKG_VERSION")))
+            .user_agent(concat!("SplatLink/", env!("CARGO_PKG_VERSION")))
             .build()
         else {
             return Self::Disabled;
