@@ -84,10 +84,6 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `licenses/SuperSplat-MIT.txt` (new), `licenses/THIRD_PARTY_NOTICES.txt`: SuperSplat license and notice.
 - `src/i18n/index.tsx`, `src/styles.css`, `src/styles-dark.css`, `package.json`: text, styles and the `editor:build` script.
 
-## 2026-11-19: GitHub workflows
-
-- `.github/workflows/macos-engines.yml`, `.github/workflows/colmap-engines.yml`: removed. They published engine downloads for OOOSplat. SplatLink uses the existing pinned engine downloads.
-
 ## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.
