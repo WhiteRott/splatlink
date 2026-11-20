@@ -11,6 +11,10 @@ describe("editor window", () => {
     expect(decodeURIComponent(url.searchParams.get("filename")!)).toBe("final.ply");
   });
 
+  it("opens an empty editor when no file is given", () => {
+    expect(editorUrl()).toBe("/editor/index.html");
+  });
+
   it("finds the file name for Windows and Linux paths", () => {
     expect(fileNameOf("C:\\Users\\Gene\\Documents\\SplatLink\\cup\\final.ply")).toBe("final.ply");
     expect(fileNameOf("/home/rgs/Documents/SplatLink/cup/final.ply")).toBe("final.ply");

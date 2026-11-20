@@ -6,6 +6,8 @@
   "permissions": [
     "core:default",
     "core:webview:allow-create-webview-window",
+    "core:window:allow-set-focus",
+    "core:window:allow-unminimize",
     "clipboard-manager:allow-write-text",
     "dialog:allow-open",
     "dialog:allow-save",

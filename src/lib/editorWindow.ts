@@ -3,13 +3,14 @@
 export const EDITOR_WINDOW_LABEL = "splat-editor";
 const EDITOR_PAGE = "/editor/index.html";
 
-/** Builds the editor page address that loads one splat file. */
-export function editorUrl(assetUrl: string, filename: string): string {
+/** Builds the editor page address. Without a file, the editor opens empty. */
+export function editorUrl(assetUrl?: string, filename?: string): string {
+  if (!assetUrl) return EDITOR_PAGE;
   // The editor calls decodeURIComponent on each value after the URL is parsed,
   // so each value is encoded one extra time here.
   const params = new URLSearchParams();
   params.append("load", encodeURIComponent(assetUrl));
-  params.append("filename", encodeURIComponent(filename));
+  params.append("filename", encodeURIComponent(filename ?? fileNameOf(assetUrl)));
   return `${EDITOR_PAGE}?${params.toString()}`;
 }
 
@@ -20,10 +21,11 @@ export function fileNameOf(path: string): string {
 }
 
 /**
- * Opens the editor window with the given splat file. An open editor window
- * closes first, so the new file loads in a clean editor.
+ * Opens the editor window. With a file, an open editor window closes first, so
+ * the new file loads in a clean editor. Without a file, an open editor window
+ * comes to the front instead.
  */
-export async function openSplatEditor(assetUrl: string, filename: string, title: string): Promise<void> {
+export async function openSplatEditor(assetUrl: string | undefined, filename: string | undefined, title: string): Promise<void> {
   const url = editorUrl(assetUrl, filename);
   if (!("__TAURI_INTERNALS__" in globalThis)) {
     globalThis.open?.(url, EDITOR_WINDOW_LABEL);
@@ -31,6 +33,11 @@ export async function openSplatEditor(assetUrl: string, filename: string, title:
   }
   const { WebviewWindow } = await import("@tauri-apps/api/webviewWindow");
   const existing = await WebviewWindow.getByLabel(EDITOR_WINDOW_LABEL);
+  if (existing && !assetUrl) {
+    await existing.unminimize();
+    await existing.setFocus();
+    return;
+  }
   if (existing) {
     await existing.close();
     await new Promise(resolve => setTimeout(resolve, 150));
