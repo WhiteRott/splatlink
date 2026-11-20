@@ -72,6 +72,18 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `src/i18n/index.tsx`: tooltip text in Chinese and English.
 - `src/styles.css`, `src/styles-dark.css`: tooltip styles.
 
+## 2026-11-19: SplatLink Editor (based on SuperSplat)
+
+- `public/editor/` (new, built): the SplatLink Editor, built from SuperSplat 3.9.2 by PlayCanvas Ltd. (MIT). The SuperSplat license is in `public/editor/LICENSE-SuperSplat.txt`.
+- `editor/PATCHES.md` (new): the changes made to SuperSplat (name, logo, Publish removed, gsaf decoder left out).
+- `editor/logo.svg` (new): the SplatLink logo for the editor menu bar.
+- `scripts/build-editor.mjs` (new): downloads the pinned SuperSplat commit, applies the changes and builds `public/editor/`. Run `npm run editor:build`.
+- `src/lib/editorWindow.ts` (new) and `src/lib/editorWindow.test.ts` (new): open the editor in its own window with the current splat file.
+- `src/components/GaussianViewer/GaussianViewer.tsx`: new "Open in editor" button in the Preview header.
+- `src-tauri/capabilities/default.json`: the main window may create the editor window. The editor window has no app permissions.
+- `licenses/SuperSplat-MIT.txt` (new), `licenses/THIRD_PARTY_NOTICES.txt`: SuperSplat license and notice.
+- `src/i18n/index.tsx`, `src/styles.css`, `src/styles-dark.css`, `package.json`: text, styles and the `editor:build` script.
+
 ## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.

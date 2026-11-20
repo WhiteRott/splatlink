@@ -1115,3 +1115,7 @@ h1, h2 { margin: 0; font: 650 29px/1 "Bahnschrift", "Microsoft YaHei UI", sans-s
 .hover-tooltip.below { transform: translate(-50%, 0); }
 @keyframes hover-tooltip-in { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .hover-tooltip { animation: none; } }
+
+/* SplatLink: Open in editor button in the preview header (added by WhiteRott, 2026). */
+.preview-editor-action { margin-left: 14px; height: 32px; padding: 0 12px; display: inline-flex; align-items: center; gap: 7px; color: var(--blue); background: var(--paper); border: 1px solid var(--line); border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.preview-editor-action:hover:not(:disabled) { border-color: var(--blue); }

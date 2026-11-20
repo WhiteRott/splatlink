@@ -1,0 +1,6 @@
+SplatLink Editor
+Based on SuperSplat by PlayCanvas Ltd. (MIT License).
+Source: https://github.com/playcanvas/supersplat
+Commit: 7912e1d78b7a98cff26f7c8c2820a784b537819e
+Changes: see editor/PATCHES.md in the SplatLink repository.
+Built by scripts/build-editor.mjs.
