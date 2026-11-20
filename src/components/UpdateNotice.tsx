@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { BellDot, Copy, LoaderCircle, RefreshCw, X } from "lucide-react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { useI18n } from "../i18n";
@@ -91,7 +92,7 @@ export function UpdateNoticeDialog({ currentVersion, release, onClose }: {
     <section ref={dialog} className="update-notice-dialog" role="dialog" aria-modal="true" aria-labelledby={titleId} tabIndex={-1} onKeyDown={trapFocus}>
       <header className="settings-heading">
         <span className="settings-symbol"><BellDot size={20} /></span>
-        <div><small>OOOSplat</small><h2 id={titleId}>{t("update.found")}</h2></div>
+        <div><small>SplatLink</small><h2 id={titleId}>{t("update.found")}</h2></div>
         <button type="button" aria-label={t("common.close")} onClick={onClose}><X size={18} /></button>
       </header>
       <div className="update-notice-body">

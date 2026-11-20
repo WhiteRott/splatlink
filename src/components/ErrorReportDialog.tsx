@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, CheckCircle2, LoaderCircle, Send, ShieldCheck, X } from "lucide-react";
 import { useI18n, type TranslationKey } from "../i18n";
@@ -72,7 +73,7 @@ export function ErrorReportDialog({ failureId, onBack, onSent }: { failureId: st
     <section className="failure-guidance-dialog error-report-dialog">
       <div className="failure-guidance-heading">
         <span className="report-shield"><ShieldCheck size={22} /></span>
-        <div><small>OOOSplat</small><h2 id="error-report-title">{t("report.title")}</h2></div>
+        <div><small>SplatLink</small><h2 id="error-report-title">{t("report.title")}</h2></div>
         <button type="button" disabled={phase === "sending"} aria-label={t("common.close")} onClick={onBack}><X size={17} /></button>
       </div>
       <p id="error-report-privacy">{t("report.privacy")}</p>

@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import {
   BufferTarget,
   CanvasSource,
@@ -81,7 +82,7 @@ export function drawOoosplatWatermark(
   const margin = 48;
   const logoSize = 35;
   const gap = 9;
-  const label = "OOOSplat";
+  const label = "SplatLink";
   context.save();
   context.font = '700 20px Arial, "Segoe UI", sans-serif';
   context.textBaseline = "middle";

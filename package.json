@@ -1,12 +1,12 @@
 {
-  "name": "ooo-splat",
+  "name": "splatlink",
   "private": true,
   "version": "0.8.1",
   "license": "Apache-2.0",
-  "author": "ooolabdev",
+  "author": "WhiteRott (based on OOOSplat by ooolabdev)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ooolabdev/ooosplat.git"
+    "url": "git+https://github.com/WhiteRott/splatlink.git"
   },
   "type": "module",
   "scripts": {
@@ -25,6 +25,8 @@
     "verify:bundle-resources": "node scripts/verify-bundle-resources.mjs",
     "verify:colmap-lock": "node scripts/verify-colmap-lock.mjs",
     "verify:docs": "node scripts/verify-docs.mjs",
+    "theme:dark": "node scripts/generate-dark-theme.mjs",
+    "editor:build": "node scripts/build-editor.mjs",
     "test:engine-scripts": "node --test scripts/colmap-runtime.test.mjs scripts/colmap-development.test.mjs scripts/cuda-toolkit.test.mjs scripts/collect-linux-runtime.test.mjs scripts/colmap-macos-notices.test.mjs scripts/brush-runtime.test.mjs scripts/ffmpeg-release-policy.test.mjs scripts/engine-archive.test.mjs",
     "build:engines:windows": "powershell -ExecutionPolicy Bypass -File scripts/build-colmap-windows.ps1",
     "build:engines:linux": "bash scripts/build-colmap-linux.sh",

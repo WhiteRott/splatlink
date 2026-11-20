@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 // @vitest-environment jsdom
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -128,7 +129,7 @@ describe("GaussianVideoExport", () => {
     const y = canvas.height - 48 - 47;
     expect(context.roundRect).toHaveBeenLastCalledWith(x,y,141,47,8);
     expect(context.drawImage).toHaveBeenLastCalledWith(canvas,x+6,y+6,35,35);
-    expect(context.fillText).toHaveBeenLastCalledWith("OOOSplat",x+50,y+24);
+    expect(context.fillText).toHaveBeenLastCalledWith("SplatLink",x+50,y+24);
     expect(context.font).toBe('700 20px Arial, "Segoe UI", sans-serif');
     expect(context.shadowBlur).toBe(4);
     expect(mediabunny.state.output?.finalize).toHaveBeenCalledOnce();

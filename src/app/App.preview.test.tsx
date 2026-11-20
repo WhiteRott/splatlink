@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 // @vitest-environment jsdom
 
 import { act } from "react";
@@ -353,7 +354,7 @@ describe("App preview workspace", () => {
   });
 
   it("shows the current package version and a start action without a trailing arrow", () => {
-    expect(container.querySelector(".brand-name")?.textContent).toBe("OOOSplat");
+    expect(container.querySelector(".brand-name")?.textContent).toBe("SplatLink");
     expect(container.querySelector(".version-tag")?.textContent).toBe(`LOCAL / ${packageMetadata.version}`);
     const startButton = container.querySelector(".primary-action");
     expect(startButton?.textContent?.trim()).toBe("开始生成");

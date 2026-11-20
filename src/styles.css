@@ -1,3 +1,4 @@
+/* Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md. */
 :root {
   font-family: "Segoe UI Variable", "Microsoft YaHei UI", sans-serif;
   color: #172033;
@@ -860,6 +861,12 @@ h1, h2 { margin: 0; font: 650 29px/1 "Bahnschrift", "Microsoft YaHei UI", sans-s
 .settings-switch span { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: white; border-radius: 50%; box-shadow: 0 1px 4px rgba(19, 30, 49, .24); transition: transform 150ms; }
 .settings-switch.enabled { background: var(--blue); border-color: var(--blue-dark); }
 .settings-switch.enabled span { transform: translateX(20px); }
+/* SplatLink: theme selector (added by WhiteRott, 2026). */
+.settings-row-wide { grid-template-columns: minmax(0, 1fr) auto; }
+.settings-segmented { display: inline-flex; padding: 3px; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.settings-segmented button { padding: 6px 14px; color: var(--muted); background: transparent; border: 0; border-radius: 6px; cursor: pointer; }
+.settings-segmented button:hover { color: var(--ink); }
+.settings-segmented button.selected { color: var(--ink); background: var(--paper); box-shadow: 0 1px 3px rgba(19, 30, 49, .18); font-weight: 600; }
 .settings-content .privacy-setting-row { margin: 0; }
 .settings-content .privacy-summary { margin: 18px 0 0; }
 .settings-unavailable { margin: 18px 0 0; padding: 12px 13px; color: #697489; background: #eef1f5; border: 1px solid var(--line); font-size: 11px; }
@@ -1101,3 +1108,14 @@ h1, h2 { margin: 0; font: 650 29px/1 "Bahnschrift", "Microsoft YaHei UI", sans-s
 }
 .legacy-source-log > summary { cursor: pointer; color: inherit; padding: 7px 10px; font-family: var(--font-mono, monospace); }
 .legacy-source-log { border-top: 1px solid #384252; }
+
+/* SplatLink: shared hover tooltip (added by WhiteRott, 2026). */
+.hover-tooltip { position: fixed; z-index: 9000; max-width: 280px; padding: 6px 10px; color: var(--paper); background: var(--ink); border-radius: 6px; font-size: 12px; line-height: 1.45; pointer-events: none; box-shadow: 0 4px 14px rgba(19, 30, 49, .22); animation: hover-tooltip-in 120ms ease-out; }
+.hover-tooltip.above { transform: translate(-50%, -100%); }
+.hover-tooltip.below { transform: translate(-50%, 0); }
+@keyframes hover-tooltip-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hover-tooltip { animation: none; } }
+
+/* SplatLink: Open in editor button in the preview header (added by WhiteRott, 2026). */
+.preview-editor-action { margin-left: 14px; height: 32px; padding: 0 12px; display: inline-flex; align-items: center; gap: 7px; color: var(--blue); background: var(--paper); border: 1px solid var(--line); border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.preview-editor-action:hover:not(:disabled) { border-color: var(--blue); }

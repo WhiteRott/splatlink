@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 use std::{
     collections::HashSet,
     path::{Path, PathBuf},
@@ -333,19 +334,33 @@ fn settings_path() -> Result<PathBuf> {
 fn index_path() -> Result<PathBuf> {
     Ok(app_data_root()?.join("project-index.json"))
 }
-pub fn default_projects_root() -> Result<PathBuf> {
+fn documents_dir() -> Option<PathBuf> {
     dirs::document_dir()
         .or_else(|| dirs::home_dir().map(|home| home.join("Documents")))
         .or_else(|| dirs::data_local_dir().map(|data| data.join("Documents")))
-        .map(|v| v.join("SplatStudio").join("Projects"))
+}
+
+/// SplatLink: the default working directory is Documents/SplatLink.
+pub fn default_projects_root() -> Result<PathBuf> {
+    documents_dir()
+        .map(|v| v.join("SplatLink"))
         .ok_or_else(|| SplatError::Process("无法定位 Documents 目录".into()))
+}
+
+/// The OOOSplat default (Documents/SplatStudio/Projects). Projects there stay visible.
+fn legacy_default_projects_root() -> Option<PathBuf> {
+    documents_dir().map(|v| v.join("SplatStudio").join("Projects"))
 }
 
 pub async fn load_settings() -> Result<AppSettings> {
     let path = settings_path()?;
     if path.is_file() {
         if let Ok(bytes) = tokio::fs::read(&path).await {
-            if let Ok(value) = serde_json::from_slice(&bytes) {
+            if let Ok(mut value) = serde_json::from_slice::<AppSettings>(&bytes) {
+                // A saved root that is only the old default moves to the new default.
+                if legacy_default_projects_root().as_ref() == Some(&value.projects_root) {
+                    value.projects_root = default_projects_root()?;
+                }
                 return Ok(value);
             }
         }
@@ -635,6 +650,11 @@ pub async fn get_overview() -> Result<ProjectOverview> {
     let mut roots = vec![default_root.clone()];
     if settings.projects_root != default_root {
         roots.push(settings.projects_root.clone());
+    }
+    if let Some(legacy) = legacy_default_projects_root() {
+        if legacy.is_dir() && !roots.contains(&legacy) {
+            roots.push(legacy);
+        }
     }
     let summaries = rebuild_index_at(&index_path()?, &roots).await?;
     Ok(ProjectOverview {

@@ -1,17 +1,17 @@
 <p align="center">
-  <img src="assets/readme-logo.svg" alt="OOOSplat Logo" width="180">
+  <img src="../../assets/readme-logo.svg" alt="OOOSplat Logo" width="180">
 </p>
 
 <h1 align="center">OOOSplat</h1>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-blue?style=flat" alt="License: Apache-2.0"></a>
+  <a href="../../LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-blue?style=flat" alt="License: Apache-2.0"></a>
   <a href="https://github.com/ooolabdev/ooosplat/releases/tag/0.8.1"><img src="https://img.shields.io/badge/release-v0.8.1-blue?style=flat" alt="Release: v0.8.1"></a>
   <a href="#system-requirements"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue?style=flat" alt="Platforms: Windows, Linux, macOS"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/ooolabdev/ooosplat/releases/tag/0.8.1"><strong>Download</strong></a> | <a href="README.md">中文</a> | <a href="README_EN.md">English</a> | <a href="README_JA.md">日本語</a>
+  <a href="https://github.com/ooolabdev/ooosplat/releases/tag/0.8.1"><strong>Download</strong></a> | <a href="README_zh.md">中文</a> | <a href="README_EN.md">English</a> | <a href="README_JA.md">日本語</a>
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@ OOOSplat is a local desktop application that turns ordinary or panorama videos a
 
 Windows and the Apple Silicon macOS Alpha provide FFmpeg, FFprobe, COLMAP, and Brush with the application. Linux support remains limited to an Ubuntu 24.04 LTS x86_64 Alpha. Every generation stage runs on the user's own CPU and GPU; input media, project data, models, and logs do not need to be uploaded to a cloud reconstruction or training service.
 
-See the [OOOSplat Roadmap](ROADMAP_EN.md) for planned work.
+See the [OOOSplat Roadmap](../../ROADMAP_EN.md) for planned work.
 
 > 0.8.1 improves generation and continuation reliability, adds multi-GPU selection and mixed landscape/portrait photo sets with matching pixel dimensions, and strengthens COLMAP, Brush, FFprobe, and cross-platform diagnostics.
 
@@ -42,18 +42,18 @@ https://github.com/user-attachments/assets/5b9e8cef-4c71-4bfa-ba23-641fcdd37659
 
 ### Create and Manage Tasks
 
-![OOOSplat create-task and task-list workspace](assets/screenshots/task-workspace.png)
+![OOOSplat create-task and task-list workspace](../../assets/screenshots/task-workspace.png)
 
 ### Preview and Adjust Gaussian Splats
 
-![OOOSplat Gaussian Splat preview and transform workspace](assets/screenshots/gaussian-preview.png)
+![OOOSplat Gaussian Splat preview and transform workspace](../../assets/screenshots/gaussian-preview.png)
 
 ## Key Features
 
 - **Unified inputs**: Select or drop multiple MP4/MOV videos, image folders, or loose JPG/JPEG/PNG image sets. Inspect, confirm types, and remove sources in one input box, then reconstruct one connected scene. One ordinary image set may mix landscape and portrait images with matching pixel dimensions; each orientation uses its own camera group.
 - **Panorama media**: Supports stitched, monoscopic, full 360°×180°, 2:1 ERP MP4 and image folders. Media types are detected automatically; ambiguous inputs require an inline choice.
 - **Image-order confirmation**: Choose capture order inside the input box for each image set above 100 images. Ordered sets use sequential matching; unordered sets and sets of up to 100 images use exhaustive matching.
-- **Image GPS**: Detect embedded location metadata and assist matching and reconstruction on the validated Windows x64 path. Reliable observations provide estimated north orientation and metric scale; otherwise the original workflow is used. [Scope and validation](docs/IMAGE_GPS.md)
+- **Image GPS**: Detect embedded location metadata and assist matching and reconstruction on the validated Windows x64 path. Reliable observations provide estimated north orientation and metric scale; otherwise the original workflow is used. [Scope and validation](../../docs/IMAGE_GPS.md)
 - **External model import**: Import standard/compressed PLY, SOG, SPZ, SPLAT, and KSPLAT from the Completed group for preview, editing, and export. New imports no longer attach accompanying COLMAP data. External files remain read-only.
 - **Three quality presets**: Optimizations and backfill are standard. Fast/Balanced/Detailed retain 6/8/12 FPS by default; advanced settings adjust each video's post-sampling rate. Manually changed clips allow at most 20% extra Bridge frames. Ordinary inputs use effective-pixel Splat budgets with coefficients 0.2/0.4/0.5. Panoramas retain separate budgets, with Detailed using 40× the authoritative sparse point count. Detailed preserves source training resolution.
 - **Automatic retry**: Enabled by default; permits a lower splat ceiling after GPU OOM or a reshoot-plan fallback. Completed details mark retries that actually ran.
@@ -156,11 +156,11 @@ Sample media: [Download from Quark Drive](https://pan.quark.cn/s/1dde892a1324) t
 
 Sequential video and confirmed ordered-image matching use preset loop detection by default; valid loops are not guaranteed. Reshoots match old/new views separately, with window 10 and the preset loop policy among new ordered views. Backfill is independent of Automatic retry.
 
-For new manually sampled runs, initial registration below 80% with a valid initial model can trigger one targeted bridge attempt in unregistered intervals. It adds at most 20% of the actual initial frame count, capped by available source frames: 360 initial frames permit at most 72 extra; 100% sampling adds none. The 30-frame minimum still applies, or every available frame for shorter sources. Default sampling retains the candidate budgets below. Interrupted older runs retain their saved rules. The 1.2× ceiling controls frame counts, not time or success probability. See [bridge rules and validation](docs/MANUAL_BRIDGE_V3.md).
+For new manually sampled runs, initial registration below 80% with a valid initial model can trigger one targeted bridge attempt in unregistered intervals. It adds at most 20% of the actual initial frame count, capped by available source frames: 360 initial frames permit at most 72 extra; 100% sampling adds none. The 30-frame minimum still applies, or every available frame for shorter sources. Default sampling retains the candidate budgets below. Interrupted older runs retain their saved rules. The 1.2× ceiling controls frame counts, not time or success probability. See [bridge rules and validation](../../docs/MANUAL_BRIDGE_V3.md).
 
-Previous optimization behavior is now standard. Fast/Balanced retain working-resolution limits; Detailed uses source training resolution without upscaling. Images keep every valid input. Fast/Balanced/Detailed video sampling retains 6/8/12 FPS by default. Video controls select the post-sampling frame rate, from a dynamic minimum that preserves at least 1 FPS and 30 frames up to the full source rate. See [generation defaults](docs/GENERATION_POLICY.md) and the [legacy configuration guide](docs/pipeline-optimization-config.en.md).
+Previous optimization behavior is now standard. Fast/Balanced retain working-resolution limits; Detailed uses source training resolution without upscaling. Images keep every valid input. Fast/Balanced/Detailed video sampling retains 6/8/12 FPS by default. Video controls select the post-sampling frame rate, from a dynamic minimum that preserves at least 1 FPS and 30 frames up to the full source rate. See [generation defaults](../../docs/GENERATION_POLICY.md) and the [legacy configuration guide](../../docs/pipeline-optimization-config.en.md).
 
-The table below describes ordinary inputs. New tasks budget splats from registered training views' effective pixels and mean reconstruction track length, with coefficients 0.2/0.4/0.5 for Fast/Balanced/Detailed. Pixels are counted at the actual training dimensions; fully transparent pixels are excluded and initialization points are never silently removed. Continue generation preserves the saved budget. See the [Splat budget formula and scope](docs/FINE_SPLAT_BUDGET.md).
+The table below describes ordinary inputs. New tasks budget splats from registered training views' effective pixels and mean reconstruction track length, with coefficients 0.2/0.4/0.5 for Fast/Balanced/Detailed. Pixels are counted at the actual training dimensions; fully transparent pixels are excluded and initialization points are never silently removed. Continue generation preserves the saved budget. See the [Splat budget formula and scope](../../docs/FINE_SPLAT_BUDGET.md).
 
 Panoramas use dedicated training recipes and point budgets. Detailed retains native ERP and derives faces at `floor(ERP width / 4)` without upscaling. Point budgets use the original spherical model and are not multiplied by six. Caps guarantee neither achieved counts, quality, nor sufficient memory.
 
@@ -243,7 +243,7 @@ Anonymous analytics never sends: source media, including videos, images, and PLY
 
 After generation fails, choose **Send error report**, review the complete redacted report, then choose **Agree and send**. Reports include the failure reason, error details, the latest failure-time log excerpt (up to 200 lines / 64 KiB), app version, system version, and all detectable graphics cards. They exclude media, models, device serials, and anonymous installation identifiers. Paths, filenames, and usernames are removed. Unavailable hardware fields are left empty; the actual GPU is never guessed.
 
-Consent is separate and one-time: you can send a report even with anonymous analytics disabled, without enabling it. Cancelling the preview uploads nothing; failures can only be retried manually, and successful delivery shows a report ID. Local reports and previews remain valid for the current app session without a review time limit, and are cleared when the app closes. Reports received by the server are retained for 30 days. If the receiving service has not been deployed or the network is unavailable, the app reports delivery failure rather than claiming success. See the [receiving service integration guide](server/diagnostics/README.md).
+Consent is separate and one-time: you can send a report even with anonymous analytics disabled, without enabling it. Cancelling the preview uploads nothing; failures can only be retried manually, and successful delivery shows a report ID. Local reports and previews remain valid for the current app session without a review time limit, and are cleared when the app closes. Reports received by the server are retained for 30 days. If the receiving service has not been deployed or the network is unavailable, the app reports delivery failure rather than claiming success. See the [receiving service integration guide](../../server/diagnostics/README.md).
 
 ## Bundled Engines
 
@@ -253,9 +253,9 @@ Consent is separate and one-time: you can send a report even with anonymous anal
 | COLMAP | 4.2.1 same commit; Windows/Linux CUDA + Caspar/Ceres; macOS Ceres CPU | Feature extraction, matching, and camera reconstruction |
 | Brush | OOOBrush ooo-v1.0.0; Windows/Linux x64, macOS arm64 | Headless Gaussian Splatting training and PLY export |
 
-Windows, Ubuntu, and macOS source and integrity policies are recorded in [`engines/manifest.json`](engines/manifest.json), [`engines/manifest.linux.json`](engines/manifest.linux.json), and [`engines/manifest.macos.json`](engines/manifest.macos.json). Large engine files are not committed to Git; developers restore them with `npm run setup:engines`. Release builds verify sources, hashes, architecture, the dynamic-library closure, and Brush CLI compatibility.
+Windows, Ubuntu, and macOS source and integrity policies are recorded in [`engines/manifest.json`](../../engines/manifest.json), [`engines/manifest.linux.json`](../../engines/manifest.linux.json), and [`engines/manifest.macos.json`](../../engines/manifest.macos.json). Large engine files are not committed to Git; developers restore them with `npm run setup:engines`. Release builds verify sources, hashes, architecture, the dynamic-library closure, and Brush CLI compatibility.
 
-Third-party licenses and notices are in [`licenses/`](licenses/):
+Third-party licenses and notices are in [`licenses/`](../../licenses/):
 
 - FFmpeg: LGPL-3.0-or-later on Windows, LGPL-2.1-or-later on macOS; both builds disable GPL/nonfree components.
 - COLMAP: BSD-3-Clause.
@@ -278,7 +278,7 @@ For manual installation, download the package for your platform from each reposi
 
 Keep the runtime libraries, licenses, and metadata together without adding another wrapper directory. `npm run dev:local` and `npm run build:local` also prepare and verify the pinned OOOBrush release.
 
-See the [engine development package guide](engines/README.md) for directory layout and verification details.
+See the [engine development package guide](../../engines/README.md) for directory layout and verification details.
 
 ### Windows Development Environment
 
@@ -325,7 +325,7 @@ npm run verify:licenses
 npm run tauri -- dev
 ```
 
-The download-and-start workflow above requires the mixed macOS runtime to be hash-locked. Its distribution hashes in `engines/manifest.macos.json` are currently empty, so regular `setup:engines` rejects installation. Initial local development must follow the [macOS CI workflow](.github/workflows/macos.yml) to build and verify the FFmpeg/Brush archive. COLMAP is installed from the separately pinned `ooosplat-colmap` Release. This restriction concerns source-development setup, not use of an installer that already contains the engines.
+The download-and-start workflow above requires the mixed macOS runtime to be hash-locked. Its distribution hashes in `engines/manifest.macos.json` are currently empty, so regular `setup:engines` rejects installation. Initial local development must follow the [macOS CI workflow](../../.github/workflows/macos.yml) to build and verify the FFmpeg/Brush archive. COLMAP is installed from the separately pinned `ooosplat-colmap` Release. This restriction concerns source-development setup, not use of an installer that already contains the engines.
 
 Homebrew supplies source-build prerequisites through `npm run setup:build-deps:macos`, followed by `npm run build:engines:macos`. macOS CI verifies that run's local archive before creating an unsigned app and DMG. Review and pin the archive and integrity-file hashes before enabling normal downloads of the manifest's archive.
 
@@ -401,7 +401,7 @@ Linux FFmpeg/FFprobe retain their individual environment/PATH discovery. Brush d
 
 Enable it under Settings → MCP to let local AI agents such as Codex inspect ordinary/panorama inputs, collect generation and reshoot answers, start/resume tasks, and read status and logs. Agents can also export saved edits as standard PLY, compressed PLY, SPZ, or SOG without opening preview; files stay in the project's `exports/` directory, and SPZ range adjustments require user approval. The service is off by default, listens only on `127.0.0.1`, and needs no token.
 
-See the [MCP documentation](docs/mcp-v1.md) for connection and configuration examples.
+See the [MCP documentation](../../docs/mcp-v1.md) for connection and configuration examples.
 
 ## FAQ
 
@@ -450,7 +450,7 @@ Each project keeps source copies, input images, COLMAP data, and Brush intermedi
 
 Yes. Select “Preview” on a completed project in the task list to open its `.ply` in the dedicated preview workspace. “Adjust” supports whole-model Transform plus rectangle, sphere, and box Gaussian selection, with non-destructive deletion, cropping, inversion, undo, and redo. Edits are saved automatically in the project; “Save edits” confirms that the current edits and view have been saved without creating a model file. Choosing a model format directly from “Export” creates or safely replaces the edited model, while the original `final.ply` remains unchanged. Reopening restores the edits and the view saved on this device; yellow selections and undo history do not persist between sessions. “Animation” adds a 5-second reveal, an 8-second shockwave, a continuous orbit, watermarked portrait/landscape MP4 export, and offline HTML export. External standard/compressed PLY, SOG, SPZ, SPLAT, and KSPLAT files can be imported from “Completed → Import”; LCC/LCC2, Streamed SOG, 2DGS, and ordinary point-cloud PLY files are not supported.
 
-`W/S` move forward/backward along the current view direction, with S reversing W; `A/D` strafe horizontally with camera yaw, independently of pitch and roll. The default speed is 15% of the current visible height per second. The bottom-right slider applies a 0.1×–5.0× multiplier; `Shift` gives a further 3× speed. Auto locate view returns from any view to the first training camera, using the earliest registered panorama's front face for panorama projects. It is disabled without a reliable training camera. Opening a preview still restores the saved view first. See the [navigation notes](docs/PREVIEW_NAVIGATION.md).
+`W/S` move forward/backward along the current view direction, with S reversing W; `A/D` strafe horizontally with camera yaw, independently of pitch and roll. The default speed is 15% of the current visible height per second. The bottom-right slider applies a 0.1×–5.0× multiplier; `Shift` gives a further 3× speed. Auto locate view returns from any view to the first training camera, using the earliest registered panorama's front face for panorama projects. It is disabled without a reliable training camera. Opening a preview still restores the saved view first. See the [navigation notes](../../docs/PREVIEW_NAVIGATION.md).
 
 ### Can I preview very large PLY files?
 
@@ -467,7 +467,7 @@ The preview Export menu supports models, portrait/landscape video, and single-fi
 | SPZ v4 | Very small, lossy; sharing |
 | Single-file SOG | Typically higher compression, lossy; web presentation |
 
-SOG and SPZ are typically smaller; actual size varies and compression can affect detail. Processing starts only after selecting a format, without an intermediate PLY. The original `final.ply` stays unchanged, and failure or cancellation preserves existing exports. Compression is no longer blocked by an estimated-memory threshold, but large models can still fail if memory runs out. If SPZ coordinates exceed its range, explicit confirmation is required to center and, if needed, uniformly shrink only the export copy. Position, dimensions, and units may change; export still stops if safe encoding is impossible. See the [export notes and verification record](docs/model-export-verification.md).
+SOG and SPZ are typically smaller; actual size varies and compression can affect detail. Processing starts only after selecting a format, without an intermediate PLY. The original `final.ply` stays unchanged, and failure or cancellation preserves existing exports. Compression is no longer blocked by an estimated-memory threshold, but large models can still fail if memory runs out. If SPZ coordinates exceed its range, explicit confirmation is required to center and, if needed, uniformly shrink only the export copy. Position, dimensions, and units may change; export still stops if safe encoding is impossible. See the [export notes and verification record](../../docs/model-export-verification.md).
 
 Offline HTML preserves edits and supports viewing and animation playback, but not editing. Large models remain limited by device RAM and VRAM.
 
@@ -488,22 +488,22 @@ Contributions are welcome!
 Whether it's bug fixes, Linux/macOS support, UI improvements,
 documentation, or new Gaussian Splatting features, we'd love your help.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) to get started.
 
 ## License
 
 ### Code
 
-OOOSplat first-party code and accompanying documentation are released under the [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for copyright information.
+OOOSplat first-party code and accompanying documentation are released under the [Apache License 2.0](../../LICENSE). See [NOTICE](../../NOTICE) for copyright information.
 
 ### Third-party Components
 
-FFmpeg / FFprobe, COLMAP, Brush, PlayCanvas, and Mediabunny remain subject to their own licenses and do not become Apache-2.0 software merely because they are distributed with OOOSplat. See [Third-party Notices](licenses/THIRD_PARTY_NOTICES.txt) and the [Engine Manifest](engines/manifest.json) for direct components, versions, sources, and license files. This list is not represented as a complete audit of transitive dependencies such as Qt, Boost, or Ceres.
+FFmpeg / FFprobe, COLMAP, Brush, PlayCanvas, and Mediabunny remain subject to their own licenses and do not become Apache-2.0 software merely because they are distributed with OOOSplat. See [Third-party Notices](../../licenses/THIRD_PARTY_NOTICES.txt) and the [Engine Manifest](../../engines/manifest.json) for direct components, versions, sources, and license files. This list is not represented as a complete audit of transitive dependencies such as Qt, Boost, or Ceres.
 
 ### Brand
 
-Apache-2.0 does not grant permission to use the “OOOSplat” name, logo, icons, or other visual identifiers as trademarks. See the [OOOSplat Trademark Policy](TRADEMARK_POLICY.md) for truthful references, tutorials, screenshots, unmodified distribution, and modified-version naming rules.
+Apache-2.0 does not grant permission to use the “OOOSplat” name, logo, icons, or other visual identifiers as trademarks. See the [OOOSplat Trademark Policy](../../TRADEMARK_POLICY.md) for truthful references, tutorials, screenshots, unmodified distribution, and modified-version naming rules.
 
 ### Generated Models
 
-`final.ply` and other generated outputs do not automatically become subject to Apache, GPL, LGPL, or another bundled software license merely because OOOSplat was used. This statement does not determine copyright ownership or grant rights in input or third-party material; see [Generated Outputs](GENERATED_OUTPUTS.md) for the complete boundary.
+`final.ply` and other generated outputs do not automatically become subject to Apache, GPL, LGPL, or another bundled software license merely because OOOSplat was used. This statement does not determine copyright ownership or grant rights in input or third-party material; see [Generated Outputs](../../GENERATED_OUTPUTS.md) for the complete boundary.

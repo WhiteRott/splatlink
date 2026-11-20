@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import {
   forwardRef,
   memo,
@@ -53,7 +54,7 @@ import {
   RectangleHorizontal,
   Trash2,
   Download,
-  FileCode2,
+  FileCode2, PenTool,
 } from "lucide-react";
 import appLogo from "../../../assets/app-icon.svg";
 import {
@@ -69,6 +70,7 @@ import {
 } from "../../lib/backend";
 import { ownedBinaryChunk } from "../../lib/binaryChunk";
 import { previewAssetUrl as withPreviewAssetRevision } from "../../lib/previewAssetUrl";
+import { fileNameOf, openSplatEditor } from "../../lib/editorWindow";
 import { getCurrentLocale, translate, useI18n, type TranslationKey } from "../../i18n";
 import { useGaussianTransformStore } from "../../stores/gaussianTransformStore";
 import type {
@@ -1107,6 +1109,7 @@ export function GaussianViewer({ previewSessionId, onExit, onDisposed, pipelineR
   const [htmlProgress, setHtmlProgress] = useState<GaussianHtmlExportProgress | null>(null);
   const [htmlResult, setHtmlResult] = useState<GaussianHtmlExportResult | null>(null);
   const [htmlError, setHtmlError] = useState<string | null>(null);
+  const [editorError, setEditorError] = useState<string | null>(null);
   const [pendingNavigation, setPendingNavigation] = useState<"preview" | "exit" | null>(null);
   const [navigationSaving, setNavigationSaving] = useState(false);
   const [cropFreezing, setCropFreezing] = useState(false);
@@ -1738,6 +1741,19 @@ export function GaussianViewer({ previewSessionId, onExit, onDisposed, pipelineR
       <div className="preview-heading">
         <button className="preview-back-icon" type="button" title={t("viewer.back")} aria-label={t("viewer.back")} disabled={busy} onClick={() => requestNavigation("exit")}><ArrowLeft size={19} /></button>
         <h1>{t("viewer.heading")}</h1>
+        <button
+          className="preview-editor-action"
+          type="button"
+          data-tip={store.descriptor?.readToken ? t("viewer.openEditorImported") : t("viewer.openEditorTip")}
+          disabled={busy || !store.descriptor || !!store.descriptor.readToken}
+          onClick={() => {
+            const descriptor = store.descriptor;
+            if (!descriptor || descriptor.readToken) return;
+            setEditorError(null);
+            void openSplatEditor(descriptor.assetUrl, fileNameOf(descriptor.modelPath || descriptor.assetPath), t("viewer.editorTitle"))
+              .catch((error: unknown) => setEditorError(String(error)));
+          }}
+        ><PenTool size={15} />{t("viewer.openEditor")}</button>
       </div>
       <div className="preview-mode-control">
         <div className={`preview-mode-toggle mode-${mode}`} role="group" aria-label={t("viewer.modeAria")}>
@@ -1805,7 +1821,7 @@ export function GaussianViewer({ previewSessionId, onExit, onDisposed, pipelineR
         </Application>
         {mode === "preview" && <div ref={captureGuideRef} className={`portrait-capture-guide orientation-${orientation}`} style={guideSize} aria-hidden="true">
           <div className="portrait-frame-label"><span>{gaussianVideoDimensions(orientation).width} × {gaussianVideoDimensions(orientation).height}</span><span>30 FPS</span></div>
-          <div className="preview-watermark"><img src={appLogo} alt="" /><strong>OOOSplat</strong></div>
+          <div className="preview-watermark"><img src={appLogo} alt="" /><strong>SplatLink</strong></div>
         </div>}
         {mode === "preview" && <div className="portrait-matte" style={guideSize} aria-hidden="true" />}
         {viewport.phase !== "ready" && viewport.phase !== "error" && <div className="viewport-overlay"><LoaderCircle className="spin" size={22} /><strong>{loadingLabel}</strong>{viewport.phase === "loading" && <span>{(viewport.progress * 100).toFixed(0)}%</span>}</div>}
@@ -1851,6 +1867,7 @@ export function GaussianViewer({ previewSessionId, onExit, onDisposed, pipelineR
     {store.saveError && mode === "adjust" && <div className="preview-save-error"><span>{store.saveError}</span><button type="button" onClick={retrySave}>{t("viewer.retrySave")}</button></div>}
     {saveNotice && <div className={`preview-video-message ${saveNotice === "viewFailed" ? "warning" : ""}`} role="status">{t(saveNotice === "viewFailed" ? "viewer.viewSaveFailed" : "viewer.editsSaved")}</div>}
     {mode === "preview" && !videoCapability.checking && !videoCapability.supported && <div className="preview-video-message warning">{videoCapability.reason}</div>}
+    {editorError && <div className="preview-video-message error" role="alert">{t("viewer.openEditorFailed", { detail: editorError })}</div>}
     {mode === "preview" && videoError && <div className="preview-video-message error">{t("viewer.exportFailed", { detail: videoError })}</div>}
     {htmlError && <div className="preview-video-message error">{t("export.failed", {detail:htmlError})}</div>}
     {htmlBusy && <div className="html-export-progress" role="status"><LoaderCircle className="spin" size={18} /><span>{t(htmlProgress?.phase === "packing" ? "export.packing" : htmlProgress?.phase === "completed" ? "export.completed" : "export.preparing")}</span><progress max="100" value={htmlProgress?.progress ?? 0} /><span>{Math.floor(htmlProgress?.progress ?? 0)}%</span><button type="button" onClick={cancelHtml}>{t("common.cancel")}</button></div>}

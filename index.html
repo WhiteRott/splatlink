@@ -1,12 +1,44 @@
 <!doctype html>
+<!-- Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md. -->
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#eef1f5" />
-    <title>OOOSplat</title>
+    <meta name="theme-color" content="#0f1115" />
+    <title>SplatLink</title>
+    <script src="/theme-boot.js"></script>
+    <style>
+      #splash { position: fixed; inset: 0; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+        background: #eef1f5; color: #172033; font-family: "Segoe UI Variable", "Microsoft YaHei UI", system-ui, sans-serif; transition: opacity 280ms ease; }
+      html[data-theme="dark"] #splash { background: #0f1115; color: #e7e9ee; }
+      #splash.hidden { opacity: 0; pointer-events: none; }
+      #splash svg { width: 96px; height: 96px; }
+      #splash .splash-name { font-size: 30px; font-weight: 700; letter-spacing: .01em; }
+      #splash .splash-name span { color: #1e5cff; }
+      html[data-theme="dark"] #splash .splash-name span { color: #5ec8ff; }
+      #splash .splash-bar { width: 180px; height: 4px; border-radius: 999px; background: rgba(127, 137, 153, .25); overflow: hidden; }
+      #splash .splash-bar i { display: block; width: 40%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #5ec8ff, #7ef0c1);
+        animation: splash-slide 1.1s ease-in-out infinite; }
+      #splash .splash-status { font-size: 13px; opacity: .65; }
+      #splash .link { transform-origin: 627px 627px; animation: splash-pulse 1.6s ease-in-out infinite; }
+      @keyframes splash-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+      @keyframes splash-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+      @media (prefers-reduced-motion: reduce) { #splash .splash-bar i, #splash .link { animation: none; } }
+    </style>
   </head>
   <body>
+    <div id="splash" role="status" aria-live="polite">
+      <svg viewBox="0 0 1254 1254" aria-hidden="true">
+        <rect width="1254" height="1254" rx="236" fill="#0F1115"/>
+        <circle cx="430" cy="627" r="190" fill="#5EC8FF"/>
+        <circle cx="824" cy="627" r="190" fill="#7EF0C1"/>
+        <circle cx="430" cy="627" r="190" fill="#5EC8FF" opacity="0.55"/>
+        <rect class="link" x="470" y="580" width="314" height="94" rx="47" fill="#E7E9EE"/>
+      </svg>
+      <div class="splash-name">Splat<span>Link</span></div>
+      <div class="splash-bar"><i></i></div>
+      <div class="splash-status">Loading…</div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

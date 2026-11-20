@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { taskStatusLabel, taskProjectSummary } from "./taskPresentation";
 import { NewTaskRow } from "../components/NewTaskRow";
 import { ProjectRow } from "../components/ProjectRow";
@@ -64,6 +65,7 @@ import { loadUiPreferences, saveUiPreferences } from "./uiPreferences";
 import { GenerationPreflightDialog, type PreflightSession } from '../components/GenerationPreflightDialog';
 import { GpuSelectionDialog, type GpuSelectionResult } from '../components/GpuSelectionDialog';
 import { answerIsValid, collectPreflightQuestions,confirmedInputs, imageMatchingStrategy, preflightSnapshot, projectionIdentity, resolvedProjection, type PreflightAnswers, type PreflightQuestion } from './generationPreflight';
+import { hideSplash } from "../lib/splash";
 
 const GaussianViewer = lazy(() => import("../components/GaussianViewer").then((module) => ({ default: module.GaussianViewer })));
 const CANCELLATION_OVERLAY_DELAY_MS = 300;
@@ -277,6 +279,8 @@ function DraftRow({ draft, selected, status, insertion, dragging, onSelect, onDe
 export function App() {
   const { locale, t, toggleLocale } = useI18n();
   const store = useAppStore();
+  // SplatLink: hide the loading screen once the project folder is known.
+  useEffect(() => { if (store.projectsRoot) hideSplash(); }, [store.projectsRoot]);
   const { tasks: sharedTasks, syncError: taskSyncError, refreshTasks } = useSharedTasks();
   const loadGaussian = useGaussianTransformStore((state) => state.load);
   const closeGaussian = useGaussianTransformStore((state) => state.close);
@@ -2342,11 +2346,11 @@ export function App() {
   return <main className={isResizing ? "app-shell resizing" : "app-shell"}>
     <div className="interface-frame" style={{ "--ui-scale": uiScale / 100, "--ui-size": `${10000 / uiScale}%` } as CSSProperties}>
     <header className="topbar">
-      <div className="brand-lockup"><span className="brand-mark"><img src={appLogo} alt="" aria-hidden="true" /></span><span className="brand-name">OOO<span>Splat</span></span><span className="version-tag">LOCAL / {packageMetadata.version}</span></div>
+      <div className="brand-lockup"><span className="brand-mark"><img src={appLogo} alt="" aria-hidden="true" /></span><span className="brand-name">Splat<span>Link</span></span><span className="version-tag">LOCAL / {packageMetadata.version}</span></div>
       <div className="topbar-actions">
         <button className="settings-action language-action" type="button" title={t("language.switchTo")} aria-label={t("language.switchTo")} onClick={toggleLocale}><Languages size={15} />{t("language.target")}</button>
         {updates.release && <button className="settings-action update-notice-action" type="button" onClick={updates.open}><BellDot size={15} />{t("update.found")}</button>}
-        <button className="settings-action" type="button" onClick={() => setSettingsOpen(true)}><Settings2 size={15} />{t("top.settings")}</button>
+        <button className="settings-action" type="button" data-tip={t("tip.settings")} onClick={() => setSettingsOpen(true)}><Settings2 size={15} />{t("top.settings")}</button>
         <EngineStatusPopover engines={store.engines} />
       </div>
     </header>
@@ -2365,7 +2369,7 @@ export function App() {
         <div className="form-section">
           <label className="field-label">{t("project.root")}</label>
           <button className="path-picker compact" type="button" disabled={selectedDraft.running} onClick={() => void chooseRoot()}>
-            <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatStudio / Projects"}</small></span><ChevronRight size={16} />
+            <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatLink"}</small></span><ChevronRight size={16} />
           </button>
           <p className="field-note">{t("project.rootHint")}</p>
         </div>
@@ -2395,7 +2399,7 @@ export function App() {
           </span>
         </div>
 
-        <button className="primary-action" type="button" disabled={runBusy || queueChecking || !!preflight || selectedDraft.inputChecking || selectedDraft.needsValidation || !draftProjectionReady(selectedDraft) || !selectedDraft.inputPath || !selectedDraft.plan || !store.projectsRoot || missingEngines.length > 0} onClick={() => void generate()}><Play size={16} fill="currentColor" />{t("generate.start")}</button>
+        <button className="primary-action" type="button" data-tip={t("tip.start")} disabled={runBusy || queueChecking || !!preflight || selectedDraft.inputChecking || selectedDraft.needsValidation || !draftProjectionReady(selectedDraft) || !selectedDraft.inputPath || !selectedDraft.plan || !store.projectsRoot || missingEngines.length > 0} onClick={() => void generate()}><Play size={16} fill="currentColor" />{t("generate.start")}</button>
         {detailErrorBanner}
         </>}
 
@@ -2410,7 +2414,7 @@ export function App() {
           <div className="form-section">
             <label className="field-label">{t("project.root")}</label>
             <button className="path-picker compact" type="button" disabled={selectedDraft.running} onClick={() => void chooseRoot()}>
-              <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatStudio / Projects"}</small></span><ChevronRight size={16} />
+              <FolderOpen size={18} /><span><strong>{store.projectsRoot ? basename(store.projectsRoot) : t("project.readingRoot")}</strong><small>{store.projectsRoot ? displayPath(store.projectsRoot) : "Documents / SplatLink"}</small></span><ChevronRight size={16} />
             </button>
             <p className="field-note">{t("project.rootHint")}</p>
           </div>
@@ -2494,14 +2498,14 @@ export function App() {
       ><span /></div>
 
       <section className="projects-pane" ref={projectsPaneRef} aria-label={t("history.aria")}>
-        <div className="pane-header"><h2>{t("history.title")}</h2><button className="refresh-action" type="button" onClick={() => { void refreshTasks(); void refreshProjects().catch(error => store.setError(messageOf(error))); }}><RotateCcw size={14} />{t("history.refresh")}</button></div>
+        <div className="pane-header"><h2>{t("history.title")}</h2><button className="refresh-action" type="button" data-tip={t("tip.refresh")} onClick={() => { void refreshTasks(); void refreshProjects().catch(error => store.setError(messageOf(error))); }}><RotateCcw size={14} />{t("history.refresh")}</button></div>
         <div className="archive-summary task-summary"><span><b>{visibleDrafts.length + submittedNew.length}</b><small>{t("workspace.newTasks")}</small></span><span><b>{completed.length + submittedCompleted.length}</b><small>{t("history.completed")}</small></span><span><b>{unfinished.length + submittedUnfinished.length}</b><small>{t("history.unfinished")}</small></span></div>
 
         <div className="project-group new-task-group">
           <div className="group-heading">
             <button className="group-toggle" type="button" aria-expanded={expandedGroups.new} aria-controls="new-task-group-content" aria-label={t(expandedGroups.new ? "workspace.collapseGroup" : "workspace.expandGroup", { group: t("workspace.newTasks") })} onClick={() => toggleTaskGroup("new")}><ChevronDown size={14} aria-hidden="true" /><span>{t("workspace.newTasks")}</span></button>
             <button className="group-add-action" type="button" onClick={addGenerationDraft}><Plus size={13} />{t("workspace.addTask")}</button>
-            <button className="queue-toggle" type="button" role="switch" aria-checked={autoRunNext} disabled={queueChecking || !!preflight} onClick={() => autoRunNext ? setAutoQueueEnabled(false) : void checkQueueInputs(true)}><i aria-hidden="true"><span /></i><span>{t("workspace.autoRunNext")}</span></button>
+            <button className="queue-toggle" type="button" role="switch" data-tip={t("tip.autoRun")} aria-checked={autoRunNext} disabled={queueChecking || !!preflight} onClick={() => autoRunNext ? setAutoQueueEnabled(false) : void checkQueueInputs(true)}><i aria-hidden="true"><span /></i><span>{t("workspace.autoRunNext")}</span></button>
             <small className="group-count">{t("history.projects", { count: visibleDrafts.length + submittedNew.length })}</small>
           </div>
           {queueInputNotice && <p className="queue-input-notice" role="status">{queueInputNotice}</p>}

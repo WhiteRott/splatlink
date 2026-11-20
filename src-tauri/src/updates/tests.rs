@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 use super::*;
 use axum::{
     body::Body,
@@ -30,7 +31,7 @@ fn manifest() -> Manifest {
 fn release(version: &str) -> serde_json::Value {
     json!({ "version": version, "publishedAt": "2026-10-11T08:00:00Z",
         "notes": { "zh-CN": ["更新"], "en": ["Update"] },
-        "downloads": { "github": format!("https://github.com/ooolabdev/ooosplat/releases/tag/{version}"),
+        "downloads": { "github": format!("https://github.com/WhiteRott/splatlink/releases/tag/{version}"),
             "quark": "https://pan.quark.cn/s/abc123", "quarkCode": "1234" }
     })
 }
@@ -96,31 +97,31 @@ fn numeric_versions_stable_releases_platforms_and_build_metadata() {
 #[test]
 fn trusted_links_https_and_three_redirect_limit() {
     for url in [
-        "https://ooolab.cn/updates/latest.json",
-        "https://www.ooolab.cn/updates/latest.json",
+        "https://splatlink.app/updates/latest.json",
+        "https://www.splatlink.app/updates/latest.json",
     ] {
         assert!(allowed_manifest_redirect(&Url::parse(url).unwrap(), 3));
         assert!(!allowed_manifest_redirect(&Url::parse(url).unwrap(), 4));
     }
     for url in [
-        "http://ooolab.cn/updates/latest.json",
-        "https://ooolab.cn.evil.test/x",
-        "https://name:password@ooolab.cn/x",
-        "https://ooolab.cn:8443/x",
+        "http://splatlink.app/updates/latest.json",
+        "https://splatlink.app.evil.test/x",
+        "https://name:password@splatlink.app/x",
+        "https://splatlink.app:8443/x",
     ] {
         assert!(!allowed_manifest_url(&Url::parse(url).unwrap()));
     }
     for url in [
-        "https://github.com/ooolabdev/ooosplat/releases/tag/0.6.1",
-        "https://github.com/ooolabdev/ooosplat/releases/download/0.6.1/OOOSplat.exe",
+        "https://github.com/WhiteRott/splatlink/releases/tag/0.6.1",
+        "https://github.com/WhiteRott/splatlink/releases/download/0.6.1/SplatLink.exe",
     ] {
         assert!(allowed_download_url(url, false));
     }
     for url in [
-        "https://github.com/another/ooosplat/releases/tag/0.6.1",
-        "https://github.com/ooolabdev/ooosplat/issues/1",
-        "http://github.com/ooolabdev/ooosplat/releases/tag/0.6.1",
-        "https://user:pass@github.com/ooolabdev/ooosplat/releases/tag/0.6.1",
+        "https://github.com/another/splatlink/releases/tag/0.6.1",
+        "https://github.com/WhiteRott/splatlink/issues/1",
+        "http://github.com/WhiteRott/splatlink/releases/tag/0.6.1",
+        "https://user:pass@github.com/WhiteRott/splatlink/releases/tag/0.6.1",
     ] {
         assert!(!allowed_download_url(url, false));
     }

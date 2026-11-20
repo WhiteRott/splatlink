@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Clapperboard, FilePlus2, FolderPlus, Images, LoaderCircle, Upload, X } from 'lucide-react';
 import { localizePipelineMessage, useI18n } from '../i18n';
@@ -229,15 +230,15 @@ export function MaterialInputs({ inputs, discovery, analyses, errors = {}, check
         <div><strong>{t('inputs.groups', { count: total })}</strong>
           <small>{actionCount ? t(actionCount === 1 ? 'inputs.oneNeedsConfirmation' : 'inputs.needsConfirmation', { count: actionCount }) : t('inputs.allReady')}</small></div>
         {!readOnly && <div className="material-add-actions material-input-menu">
-          <button type="button" disabled={disabled || exclusive} onClick={onFiles}><FilePlus2 size={14} aria-hidden="true" />{t('inputs.files')}</button>
-          <button type="button" disabled={disabled || exclusive} onClick={onFolders}><FolderPlus size={14} aria-hidden="true" />{t('inputs.folders')}</button>
+          <button type="button" disabled={disabled || exclusive} data-tip={t('tip.addFiles')} onClick={onFiles}><FilePlus2 size={14} aria-hidden="true" />{t('inputs.files')}</button>
+          <button type="button" disabled={disabled || exclusive} data-tip={t('tip.addFolders')} onClick={onFolders}><FolderPlus size={14} aria-hidden="true" />{t('inputs.folders')}</button>
         </div>}
       </div>}
 
       {!total && !readOnly && <div className="material-empty">
         <p>{t('inputs.empty')}</p><div className="material-empty-actions material-add-actions material-input-menu">
-          <button type="button" disabled={disabled} onClick={onFiles}><FilePlus2 size={14} aria-hidden="true" />{t('inputs.files')}</button>
-          <button type="button" disabled={disabled} onClick={onFolders}><FolderPlus size={14} aria-hidden="true" />{t('inputs.folders')}</button>
+          <button type="button" disabled={disabled} data-tip={t('tip.addFiles')} onClick={onFiles}><FilePlus2 size={14} aria-hidden="true" />{t('inputs.files')}</button>
+          <button type="button" disabled={disabled} data-tip={t('tip.addFolders')} onClick={onFolders}><FolderPlus size={14} aria-hidden="true" />{t('inputs.folders')}</button>
         </div>
       </div>}
 

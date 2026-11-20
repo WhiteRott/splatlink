@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 import { useEffect, useState } from 'react';
 import { getMcpSettings, selectMcpInputRoot, setMcpSettings } from '../lib/backend';
 import { pipelineErrorMessage } from '../lib/pipelineError';
@@ -42,7 +43,7 @@ export function McpSettingsPanel() {
   const visibleDefaultRoot = defaultRoot ? displayPath(defaultRoot) : null;
   const canSave = desktop && !busy && Number.isInteger(settings.port) && settings.port >= 1 && settings.port <= 65535;
   return <section className="mcp-settings">
-    <div className="settings-section-heading"><h3>{zh ? '本地 AI Agent 连接' : 'Local AI Agent connection'}</h3><p>{zh ? '让本机 MCP 客户端操作 OOOSplat 中的生成任务。' : 'Let local MCP clients work with generation tasks in OOOSplat.'}</p></div>
+    <div className="settings-section-heading"><h3>{zh ? '本地 AI Agent 连接' : 'Local AI Agent connection'}</h3><p>{zh ? '让本机 MCP 客户端操作 SplatLink 中的生成任务。' : 'Let local MCP clients work with generation tasks in SplatLink.'}</p></div>
 
     <section className="mcp-section" aria-label={zh ? 'MCP 服务' : 'MCP service'}>
       <div className="mcp-control-row"><div><strong>{zh ? '启用 MCP' : 'Enable MCP'}</strong><p>{zh ? '关闭连接入口不会取消已接受的生成任务。' : 'Disabling the connection keeps accepted generation tasks running.'}</p></div>
@@ -69,7 +70,7 @@ export function McpSettingsPanel() {
       </> : <p className="mcp-note">{zh ? '启用 MCP 后可以复制连接配置。' : 'Enable MCP to copy the client configuration.'}</p>}
       <p className="mcp-note">{zh ? '云端 Agent 无法直接访问此电脑的 localhost。' : 'Cloud agents cannot directly access this computer’s localhost.'}</p>
     </section>
-    {!desktop && <p className="mcp-note">{zh ? '请在 OOOSplat 桌面应用中启用本地连接。' : 'Enable local connections in the OOOSplat desktop app.'}</p>}
+    {!desktop && <p className="mcp-note">{zh ? '请在 SplatLink 桌面应用中启用本地连接。' : 'Enable local connections in the SplatLink desktop app.'}</p>}
     {(connection?.error || message) && <p className={`mcp-feedback${connection?.error ? ' error' : ''}`} role="status">{connection?.error ?? message}</p>}
   </section>;
 }

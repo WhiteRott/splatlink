@@ -1,3 +1,4 @@
+// Modified by WhiteRott for SplatLink (2026). See MODIFICATIONS.md.
 //! Notification-only update checks. No installer download, telemetry, or URL opener.
 use std::{
     collections::BTreeMap,
@@ -11,7 +12,7 @@ use semver::Version;
 use serde::{Deserialize, Serialize};
 use tokio::{io::AsyncReadExt, sync::Mutex};
 
-const ENDPOINT: &str = "https://ooolab.cn/updates/latest.json";
+const ENDPOINT: &str = "https://splatlink.app/updates/latest.json";
 const MAX_MANIFEST_BYTES: usize = 64 * 1024;
 const MAX_CACHE_BYTES: usize = MAX_MANIFEST_BYTES * 2;
 const CACHE_TTL: Duration = Duration::from_secs(24 * 60 * 60);
@@ -151,7 +152,7 @@ fn safe_https_url(raw: &str) -> Option<Url> {
 
 fn allowed_manifest_url(url: &Url) -> bool {
     safe_https_url(url.as_str()).is_some()
-        && matches!(url.host_str(), Some("ooolab.cn" | "www.ooolab.cn"))
+        && matches!(url.host_str(), Some("splatlink.app" | "www.splatlink.app"))
 }
 
 fn allowed_manifest_redirect(url: &Url, hops: usize) -> bool {
@@ -175,7 +176,7 @@ fn allowed_download_url(raw: &str, quark: bool) -> bool {
     } else {
         url.host_str() == Some("github.com")
             && segments.len() >= 5
-            && segments[..3] == ["ooolabdev", "ooosplat", "releases"]
+            && segments[..3] == ["WhiteRott", "splatlink", "releases"]
             && matches!(segments[3], "tag" | "download")
     }
 }

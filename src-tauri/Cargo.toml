@@ -2,10 +2,10 @@
 name = "ooo-splat"
 version = "0.8.1"
 description = "Local video-to-Gaussian-Splatting pipeline for Windows, Apple Silicon macOS Alpha, and Ubuntu 24.04 Alpha"
-authors = ["ooolabdev"]
+authors = ["ooolabdev", "WhiteRott"]
 license = "Apache-2.0"
-repository = "https://github.com/ooolabdev/ooosplat"
-homepage = "https://github.com/ooolabdev/ooosplat"
+repository = "https://github.com/WhiteRott/splatlink"
+homepage = "https://splatlink.app"
 edition = "2021"
 default-run = "ooo-splat"
 

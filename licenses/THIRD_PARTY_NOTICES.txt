@@ -182,3 +182,20 @@ engines/manifest.json for Windows, engines/manifest.linux.json for the Ubuntu
 JavaScript versions are locked in package-lock.json. This notice does not
 modify any component license.
 Third-party product names and marks belong to their respective owners.
+
+SplatLink Editor (SuperSplat)
+-----------------------------
+Added by WhiteRott for SplatLink (2026).
+Version: SuperSplat 3.9.2, commit 7912e1d78b7a98cff26f7c8c2820a784b537819e
+License: MIT, Copyright (c) 2011-2026 PlayCanvas Ltd.
+License text: licenses/SuperSplat-MIT.txt (also public/editor/LICENSE-SuperSplat.txt)
+Source: https://github.com/playcanvas/supersplat
+Changes: editor/PATCHES.md. Built by scripts/build-editor.mjs into public/editor.
+SplatLink does not use the SuperSplat or PlayCanvas names or logos as its brand.
+The editor bundle also includes:
+- PlayCanvas Engine, PCUI and splat-transform (MIT, PlayCanvas Ltd.). See licenses/PlayCanvas-MIT.txt.
+- libwebp, compiled to WebAssembly by splat-transform (BSD-3-Clause, Google Inc.).
+- i18next, i18next-browser-languagedetector, i18next-http-backend (MIT).
+- Mediabunny (MPL-2.0). See licenses/Mediabunny-MPL-2.0.txt.
+- tslib (0BSD).
+The prebuilt gsaf decoder from SuperSplat is not included, because its license is not confirmed.
