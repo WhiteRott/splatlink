@@ -24,7 +24,7 @@ import { lazy, Suspense, useCallback, useEffect, useId, useMemo, useRef, useStat
 import {
   BellDot, ChevronDown, ChevronRight, CircleAlert, CircleHelp, Clapperboard, Cpu,
   FolderOpen, Images, Languages, LoaderCircle, Minus, Play, Plus, RotateCcw, Settings2,
-  Send, Upload, X, Zap, Lock,
+  Send, Upload, X, Zap, Lock, PenTool,
 } from "lucide-react";
 import appLogo from "../../assets/app-icon.svg";
 import packageMetadata from "../../package.json";
@@ -66,6 +66,7 @@ import { GenerationPreflightDialog, type PreflightSession } from '../components/
 import { GpuSelectionDialog, type GpuSelectionResult } from '../components/GpuSelectionDialog';
 import { answerIsValid, collectPreflightQuestions,confirmedInputs, imageMatchingStrategy, preflightSnapshot, projectionIdentity, resolvedProjection, type PreflightAnswers, type PreflightQuestion } from './generationPreflight';
 import { hideSplash } from "../lib/splash";
+import { openSplatEditor } from "../lib/editorWindow";
 
 const GaussianViewer = lazy(() => import("../components/GaussianViewer").then((module) => ({ default: module.GaussianViewer })));
 const CANCELLATION_OVERLAY_DELAY_MS = 300;
@@ -2351,6 +2352,7 @@ export function App() {
         <button className="settings-action language-action" type="button" title={t("language.switchTo")} aria-label={t("language.switchTo")} onClick={toggleLocale}><Languages size={15} />{t("language.target")}</button>
         {updates.release && <button className="settings-action update-notice-action" type="button" onClick={updates.open}><BellDot size={15} />{t("update.found")}</button>}
         <button className="settings-action" type="button" data-tip={t("tip.settings")} onClick={() => setSettingsOpen(true)}><Settings2 size={15} />{t("top.settings")}</button>
+        <button className="settings-action editor-action" type="button" data-tip={t("tip.editor")} onClick={() => { void openSplatEditor(undefined, undefined, t("viewer.editorTitle")).catch((error: unknown) => console.warn("SplatLink Editor could not open", error)); }}><PenTool size={15} />{t("top.editor")}</button>
         <EngineStatusPopover engines={store.engines} />
       </div>
     </header>

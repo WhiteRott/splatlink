@@ -84,6 +84,13 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `licenses/SuperSplat-MIT.txt` (new), `licenses/THIRD_PARTY_NOTICES.txt`: SuperSplat license and notice.
 - `src/i18n/index.tsx`, `src/styles.css`, `src/styles-dark.css`, `package.json`: text, styles and the `editor:build` script.
 
+## 2026-11-19: Editor button in the top bar
+
+- `src/app/App.tsx`: new "Editor" button in the top bar. It opens the SplatLink Editor without a file, or brings an open editor window to the front.
+- `src/lib/editorWindow.ts`, `src/lib/editorWindow.test.ts`: the editor can open without a file.
+- `src-tauri/capabilities/default.json`: the main window may bring the editor window to the front.
+- `src/i18n/index.tsx`: button text and tooltip in Chinese and English.
+
 ## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.
