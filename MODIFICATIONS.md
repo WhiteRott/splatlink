@@ -84,6 +84,13 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `licenses/SuperSplat-MIT.txt` (new), `licenses/THIRD_PARTY_NOTICES.txt`: SuperSplat license and notice.
 - `src/i18n/index.tsx`, `src/styles.css`, `src/styles-dark.css`, `package.json`: text, styles and the `editor:build` script.
 
+## 2026-11-21: New SplatLink logo
+
+- `assets/app-icon.svg`, `assets/app-icon-rounded.svg`, `assets/readme-logo.svg`: new logo. A soft-splat circle and a confetti circle, joined by an outlined bar with wireless waves and arrows both ways.
+- `src-tauri/icons/`: all desktop, Android and iOS icons regenerated from the new logo. Android icon background is now light.
+- `public/splatlink-logo.svg` (new), `index.html`: the loading screen shows the new logo.
+- `editor/logo.svg`, `public/editor/`: the editor menu bar shows the new logo (editor rebuilt).
+
 ## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
 - Some backend log and error messages still name OOOSplat.
