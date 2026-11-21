@@ -90,6 +90,7 @@ WhiteRott changed the files below for SplatLink. This file states those changes,
 - `src-tauri/icons/`: all desktop, Android and iOS icons regenerated from the new logo. Android icon background is now light.
 - `public/splatlink-logo.svg` (new), `index.html`: the loading screen shows the new logo.
 - `editor/logo.svg`, `public/editor/`: the editor menu bar shows the new logo (editor rebuilt).
+- `assets/social-preview.png` (new): GitHub social preview image with the new logo.
 
 ## Not changed yet
 - Internal code names (for example `ooo_splat`, `OOOSPLAT_*` environment variables and database table names) are unchanged. Users do not see them.
